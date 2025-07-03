@@ -23,11 +23,11 @@ def list_courses():
             'id': c.id,
             'name': c.name
         } for c in courses
-    ])
+    ]), 200
 
 @courses_bp.route('/<int:course_id>', methods=['DELETE'])
 def delete_course(course_id):
     course = Course.query.get_or_404(course_id)
     db.session.delete(course)
     db.session.commit()
-    return jsonify({'message': 'Course deleted successfully.'}) 
+    return jsonify({'message': 'Course deleted successfully.'}), 200 

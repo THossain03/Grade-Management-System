@@ -66,11 +66,11 @@ def list_students():
             'date_of_birth': s.date_of_birth.strftime('%Y-%m-%d'),
             'email': s.email
         } for s in students
-    ])
+    ]), 200
 
 @students_bp.route('/<int:student_id>', methods=['DELETE'])
 def delete_student(student_id):
     student = Student.query.get_or_404(student_id)
     db.session.delete(student)
     db.session.commit()
-    return jsonify({'message': 'Student deleted successfully.'}) 
+    return jsonify({'message': 'Student deleted successfully.'}), 200 
