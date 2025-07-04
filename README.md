@@ -80,6 +80,3 @@ The Student Result Management System is a web application designed to efficientl
 - This implementation is tailored to the requirements of the assessment, focusing on core CRUD functionality and a clean, maintainable architecture.
 - The application is structured to allow for easy extension, such as adding authentication, user roles, or advanced security features in a production environment.
 - Security, data integrity, and scalability were considered in the design and can be further enhanced as needed.
-
-## License
-This project is licensed under the MIT License.
