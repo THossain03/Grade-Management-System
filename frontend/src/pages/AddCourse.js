@@ -3,6 +3,8 @@ import { Box, Typography, Paper, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 import CourseForm from '../components/CourseForm';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const AddCourse = () => {
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -10,7 +12,7 @@ const AddCourse = () => {
   const handleSubmit = async (form, resetForm) => {
     setLoading(true);
     try {
-      await axios.post('/api/courses/', form);
+      await axios.post(`${API_BASE_URL}/api/courses/`, form);
       setSnackbar({ open: true, message: 'Course added successfully!', severity: 'success' });
       resetForm({ name: '' });
     } catch (err) {

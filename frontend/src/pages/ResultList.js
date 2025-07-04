@@ -4,6 +4,8 @@ import axios from 'axios';
 import Table from '../components/Table';
 import Paginator from '../components/Paginator';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const ResultList = () => {
   const [results, setResults] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -12,7 +14,7 @@ const ResultList = () => {
 
   const fetchResults = async () => {
     try {
-      const res = await axios.get('/api/results/');
+      const res = await axios.get(`${API_BASE_URL}/api/results/`);
       setResults(res.data);
     } catch {
       setSnackbar({ open: true, message: 'Failed to fetch results.', severity: 'error' });

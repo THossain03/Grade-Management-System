@@ -3,6 +3,8 @@ import { Box, Typography, Paper, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 import ResultForm from '../components/ResultForm';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const AddResult = () => {
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -13,8 +15,8 @@ const AddResult = () => {
     const fetchData = async () => {
       try {
         const [studentsRes, coursesRes] = await Promise.all([
-          axios.get('/api/students/'),
-          axios.get('/api/courses/')
+          axios.get(`${API_BASE_URL}/api/students/`),
+          axios.get(`${API_BASE_URL}/api/courses/`)
         ]);
         setStudents(studentsRes.data);
         setCourses(coursesRes.data);
@@ -28,7 +30,7 @@ const AddResult = () => {
   const handleSubmit = async (form, resetForm) => {
     setLoading(true);
     try {
-      await axios.post('/api/results/', form);
+      await axios.post(`${API_BASE_URL}/api/results/`, form);
       setSnackbar({ open: true, message: 'Result added successfully!', severity: 'success' });
       resetForm({ student_id: '', course_id: '', score: '' });
     } catch (err) {

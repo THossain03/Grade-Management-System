@@ -4,6 +4,8 @@ import axios from 'axios';
 import Table from '../components/Table';
 import Paginator from '../components/Paginator';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -12,7 +14,7 @@ const CourseList = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get('/api/courses/');
+      const res = await axios.get(`${API_BASE_URL}/api/courses/`);
       setCourses(res.data);
     } catch {
       setSnackbar({ open: true, message: 'Failed to fetch courses.', severity: 'error' });
@@ -25,7 +27,7 @@ const CourseList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/courses/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/courses/${id}`);
       setCourses(courses.filter((c) => c.id !== id));
       setSnackbar({ open: true, message: 'Course deleted.', severity: 'success' });
     } catch {

@@ -4,6 +4,8 @@ import axios from 'axios';
 import Table from '../components/Table';
 import Paginator from '../components/Paginator';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
 const StudentList = () => {
   const [students, setStudents] = useState([]);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
@@ -12,7 +14,7 @@ const StudentList = () => {
 
   const fetchStudents = async () => {
     try {
-      const res = await axios.get('/api/students/');
+      const res = await axios.get(`${API_BASE_URL}/api/students/`);
       setStudents(res.data);
     } catch {
       setSnackbar({ open: true, message: 'Failed to fetch students.', severity: 'error' });
@@ -25,7 +27,7 @@ const StudentList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/students/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/students/${id}`);
       setStudents(students.filter((s) => s.id !== id));
       setSnackbar({ open: true, message: 'Student deleted.', severity: 'success' });
     } catch {
